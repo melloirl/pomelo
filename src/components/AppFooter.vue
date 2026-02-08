@@ -8,13 +8,13 @@ const { t } = useI18n()
 <template>
   <footer class="mt-20 bg-white" aria-label="Site footer">
     <div class="mx-auto w-full max-w-6xl px-6 py-5 text-left">
-      <p class="text-[0.65rem] font-bold uppercase tracking-[0.22em]">{{ t('appFooter.licenseLabel') }}</p>
+      <p class="type-evidence-label">{{ t('appFooter.licenseLabel') }}</p>
 
-      <p class="mt-2 font-heading text-lg leading-tight uppercase sm:text-xl">
+      <p class="type-declaration type-declaration-section mt-2">
         {{ t('appFooter.licenseName') }}
       </p>
 
-      <p class="mt-6 text-xs font-bold uppercase tracking-[0.1em]">
+      <p class="type-evidence-label mt-6">
         {{ t('appFooter.reuseWithAttribution') }} · {{ t('profile.name') }} · {{ currentYear }}
       </p>
     </div>

@@ -84,7 +84,7 @@ const currentYear = new Date().getFullYear()
             border-variant="solid"
             :active="activeHash === 'home'"
           >
-            <p class="mt-4 max-w-4xl border-t border-black pt-4 font-heading text-2xl leading-tight sm:text-4xl">
+            <p class="type-declaration type-declaration-support mt-4 max-w-4xl border-t border-black pt-4">
               {{ t('sections.hero.headline') }}
             </p>
 
@@ -92,7 +92,7 @@ const currentYear = new Date().getFullYear()
               <a
                 href="#contact"
                 @click="onHashClick('contact')($event)"
-                class="stroke-thin border-black px-4 py-2 text-xs font-bold uppercase tracking-[0.12em]"
+                class="type-action stroke-thin border-black px-4 py-2"
               >
                 {{ t('sections.hero.actions.contact') }}
               </a>
@@ -101,15 +101,15 @@ const currentYear = new Date().getFullYear()
                 href="https://www.linkedin.com/in/omelodev/"
                 target="_blank"
                 rel="noreferrer"
-                class="stroke-thin border-black px-4 py-2 text-xs font-bold uppercase tracking-[0.12em]"
+                class="type-action stroke-thin border-black px-4 py-2"
               >
-              {{ t('sections.hero.actions.resume') }}
-            </a>
-          </div>
-        </ContentCard>
+                {{ t('sections.hero.actions.resume') }}
+              </a>
+            </div>
+          </ContentCard>
           <p
             aria-hidden="true"
-            class="pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-[0.62rem] font-bold uppercase tracking-[0.24em] text-black/30 sm:block"
+            class="type-identity pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-black/30 sm:block"
           >
             01 {{ t('header.home') }}
           </p>
@@ -123,13 +123,13 @@ const currentYear = new Date().getFullYear()
             border-variant="dashed"
             padding-class="p-6 sm:p-8"
           >
-            <ul class="mt-5 space-y-2 border-t border-black pt-5 text-sm leading-relaxed sm:text-base">
+            <ul class="type-evidence mt-5 space-y-2 border-t border-black pt-5">
               <li v-for="itemKey in howIWorkItemKeys" :key="itemKey">- {{ t(itemKey) }}</li>
             </ul>
           </ContentCard>
           <p
             aria-hidden="true"
-            class="pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-[0.62rem] font-bold uppercase tracking-[0.24em] text-black/30 sm:block"
+            class="type-identity pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-black/30 sm:block"
           >
             02 {{ t('sections.howIWork.title') }}
           </p>
@@ -143,21 +143,21 @@ const currentYear = new Date().getFullYear()
             border-variant="dashed"
             padding-class="p-6 sm:p-8"
           >
-            <ul class="mt-5 space-y-3 border-t border-black pt-5 text-sm leading-relaxed sm:text-base">
-              <li><span class="font-bold">{{ t('sections.aiLeverage.usedLabel') }}:</span> {{ t('sections.aiLeverage.used') }}</li>
+            <ul class="type-evidence mt-5 space-y-3 border-t border-black pt-5">
+              <li><span class="type-evidence-label">{{ t('sections.aiLeverage.usedLabel') }}:</span> {{ t('sections.aiLeverage.used') }}</li>
               <li>
-                <span class="font-bold">{{ t('sections.aiLeverage.notTrustedLabel') }}:</span>
+                <span class="type-evidence-label">{{ t('sections.aiLeverage.notTrustedLabel') }}:</span>
                 {{ t('sections.aiLeverage.notTrusted') }}
               </li>
               <li>
-                <span class="font-bold">{{ t('sections.aiLeverage.validatedLabel') }}:</span>
+                <span class="type-evidence-label">{{ t('sections.aiLeverage.validatedLabel') }}:</span>
                 {{ t('sections.aiLeverage.validated') }}
               </li>
             </ul>
           </ContentCard>
           <p
             aria-hidden="true"
-            class="pointer-events-none absolute top-6 -left-10 hidden [writing-mode:vertical-rl] text-[0.62rem] font-bold uppercase tracking-[0.24em] text-black/30 sm:block"
+            class="type-identity pointer-events-none absolute top-6 -left-10 hidden [writing-mode:vertical-rl] text-black/30 sm:block"
           >
             03 {{ t('sections.aiLeverage.title') }}
           </p>
@@ -174,15 +174,15 @@ const currentYear = new Date().getFullYear()
           >
             <div class="mt-6 grid grid-cols-1 gap-6 border-t border-black pt-6 sm:grid-cols-2">
               <div>
-                <p class="text-xs font-bold uppercase tracking-[0.12em]">{{ t('sections.work.labels.impact') }}</p>
-                <ul class="mt-3 space-y-2 text-sm leading-relaxed sm:text-base">
+                <p class="type-evidence-label">{{ t('sections.work.labels.impact') }}</p>
+                <ul class="type-evidence mt-3 space-y-2">
                   <li v-for="itemKey in primaryImpactKeys" :key="itemKey">- {{ t(itemKey) }}</li>
                 </ul>
               </div>
 
               <div>
-                <p class="text-xs font-bold uppercase tracking-[0.12em]">{{ t('sections.work.labels.decisions') }}</p>
-                <ul class="mt-3 space-y-2 text-sm leading-relaxed sm:text-base">
+                <p class="type-evidence-label">{{ t('sections.work.labels.decisions') }}</p>
+                <ul class="type-evidence mt-3 space-y-2">
                   <li v-for="itemKey in primaryDecisionKeys" :key="itemKey">- {{ t(itemKey) }}</li>
                 </ul>
               </div>
@@ -191,14 +191,14 @@ const currentYear = new Date().getFullYear()
             <a
               href="#writing"
               @click="onHashClick('writing')($event)"
-              class="mt-6 inline-block border-b-2 border-black pb-1 text-xs font-bold uppercase tracking-[0.12em]"
+              class="type-action mt-6 inline-block border-b-2 border-black pb-1"
             >
               {{ t('sections.work.deepDive') }}
             </a>
           </ContentCard>
           <p
             aria-hidden="true"
-            class="pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-[0.62rem] font-bold uppercase tracking-[0.24em] text-black/30 sm:block"
+            class="type-identity pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-black/30 sm:block"
           >
             04 {{ t('sections.work.primary.title') }}
           </p>
@@ -214,15 +214,15 @@ const currentYear = new Date().getFullYear()
           >
             <div class="mt-6 grid grid-cols-1 gap-6 border-t border-black pt-6 sm:grid-cols-2">
               <div>
-                <p class="text-xs font-bold uppercase tracking-[0.12em]">{{ t('sections.work.labels.impact') }}</p>
-                <ul class="mt-3 space-y-2 text-sm leading-relaxed sm:text-base">
+                <p class="type-evidence-label">{{ t('sections.work.labels.impact') }}</p>
+                <ul class="type-evidence mt-3 space-y-2">
                   <li v-for="itemKey in secondaryImpactKeys" :key="itemKey">- {{ t(itemKey) }}</li>
                 </ul>
               </div>
 
               <div>
-                <p class="text-xs font-bold uppercase tracking-[0.12em]">{{ t('sections.work.labels.decisions') }}</p>
-                <ul class="mt-3 space-y-2 text-sm leading-relaxed sm:text-base">
+                <p class="type-evidence-label">{{ t('sections.work.labels.decisions') }}</p>
+                <ul class="type-evidence mt-3 space-y-2">
                   <li v-for="itemKey in secondaryDecisionKeys" :key="itemKey">- {{ t(itemKey) }}</li>
                 </ul>
               </div>
@@ -231,14 +231,14 @@ const currentYear = new Date().getFullYear()
             <a
               href="#writing"
               @click="onHashClick('writing')($event)"
-              class="mt-6 inline-block border-b-2 border-black pb-1 text-xs font-bold uppercase tracking-[0.12em]"
+              class="type-action mt-6 inline-block border-b-2 border-black pb-1"
             >
               {{ t('sections.work.deepDive') }}
             </a>
           </ContentCard>
           <p
             aria-hidden="true"
-            class="pointer-events-none absolute top-6 -left-10 hidden [writing-mode:vertical-rl] text-[0.62rem] font-bold uppercase tracking-[0.24em] text-black/30 sm:block"
+            class="type-identity pointer-events-none absolute top-6 -left-10 hidden [writing-mode:vertical-rl] text-black/30 sm:block"
           >
             05 {{ t('sections.work.secondary.title') }}
           </p>
@@ -254,7 +254,7 @@ const currentYear = new Date().getFullYear()
           />
           <p
             aria-hidden="true"
-            class="pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-[0.62rem] font-bold uppercase tracking-[0.24em] text-black/30 sm:block"
+            class="type-identity pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-black/30 sm:block"
           >
             06 {{ t('sections.work.contribution.title') }}
           </p>
@@ -270,15 +270,15 @@ const currentYear = new Date().getFullYear()
           >
             <div class="mt-6 grid grid-cols-1 gap-6 border-t border-black pt-6 sm:grid-cols-2">
               <div>
-                <p class="text-xs font-bold uppercase tracking-[0.12em]">{{ t('sections.skills.frontend.title') }}</p>
-                <ul class="mt-3 space-y-2 text-sm leading-relaxed sm:text-base">
+                <p class="type-evidence-label">{{ t('sections.skills.frontend.title') }}</p>
+                <ul class="type-evidence mt-3 space-y-2">
                   <li v-for="itemKey in frontendSkillKeys" :key="itemKey">- {{ t(itemKey) }}</li>
                 </ul>
               </div>
 
               <div>
-                <p class="text-xs font-bold uppercase tracking-[0.12em]">{{ t('sections.skills.backendTooling.title') }}</p>
-                <ul class="mt-3 space-y-2 text-sm leading-relaxed sm:text-base">
+                <p class="type-evidence-label">{{ t('sections.skills.backendTooling.title') }}</p>
+                <ul class="type-evidence mt-3 space-y-2">
                   <li v-for="itemKey in backendSkillKeys" :key="itemKey">- {{ t(itemKey) }}</li>
                 </ul>
               </div>
@@ -286,7 +286,7 @@ const currentYear = new Date().getFullYear()
           </ContentCard>
           <p
             aria-hidden="true"
-            class="pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-[0.62rem] font-bold uppercase tracking-[0.24em] text-black/30 sm:block"
+            class="type-identity pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-black/30 sm:block"
           >
             07 {{ t('sections.skills.title') }}
           </p>
@@ -303,14 +303,14 @@ const currentYear = new Date().getFullYear()
           >
             <a
               href="/writing"
-              class="mt-5 inline-block border-b-2 border-black pb-1 text-xs font-bold uppercase tracking-[0.12em]"
+              class="type-action mt-5 inline-block border-b-2 border-black pb-1"
             >
               {{ t('sections.writing.link') }}
             </a>
           </ContentCard>
           <p
             aria-hidden="true"
-            class="pointer-events-none absolute top-6 -left-10 hidden [writing-mode:vertical-rl] text-[0.62rem] font-bold uppercase tracking-[0.24em] text-black/30 sm:block"
+            class="type-identity pointer-events-none absolute top-6 -left-10 hidden [writing-mode:vertical-rl] text-black/30 sm:block"
           >
             08 {{ t('sections.writing.title') }}
           </p>
@@ -327,7 +327,7 @@ const currentYear = new Date().getFullYear()
             body-width-class="max-w-full"
             :active="activeHash === 'contact'"
           >
-            <div class="mt-5 border-t border-black pt-5 text-xs font-bold uppercase tracking-[0.12em]">
+            <div class="type-action mt-5 border-t border-black pt-5">
               <a href="mailto:hello@omelodev.com" class="border-b border-black pb-0.5">
                 {{ t('sections.footer.links.email') }}
               </a>
@@ -343,7 +343,7 @@ const currentYear = new Date().getFullYear()
           </ContentCard>
           <p
             aria-hidden="true"
-            class="pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-[0.62rem] font-bold uppercase tracking-[0.24em] text-black/30 sm:block"
+            class="type-identity pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-black/30 sm:block"
           >
             09 {{ t('header.contact') }}
           </p>

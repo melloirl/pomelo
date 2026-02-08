@@ -36,23 +36,26 @@ const props = withDefaults(defineProps<ContentCardProps>(), {
     ]"
   >
     <div :class="props.sectionLabel ? 'grid grid-cols-[auto_1fr] gap-4 sm:gap-6' : ''">
-      <p v-if="props.sectionLabel" class="pt-1 text-[0.65rem] font-bold tracking-[0.18em] text-black/65">
+      <p v-if="props.sectionLabel" class="type-identity pt-1 text-black/65">
         {{ props.sectionLabel }}
       </p>
 
       <div class="border-l border-black/50 pl-4 sm:pl-6">
-        <p v-if="props.eyebrow || $slots.eyebrow" class="text-xs font-bold uppercase tracking-[0.18em]">
+        <p v-if="props.eyebrow || $slots.eyebrow" class="type-identity">
           <slot name="eyebrow">{{ props.eyebrow }}</slot>
         </p>
 
         <component
           :is="props.headingTag"
-          :class="props.headingTag === 'h1' ? 'mt-3 text-4xl leading-none sm:text-6xl' : 'text-2xl sm:text-3xl'"
+          :class="[
+            'type-declaration',
+            props.headingTag === 'h1' ? 'mt-3 type-declaration-major' : 'type-declaration-section',
+          ]"
         >
           <slot name="title">{{ props.title }}</slot>
         </component>
 
-        <p v-if="props.body || $slots.body" :class="['mt-3 text-base leading-relaxed sm:text-lg', props.bodyWidthClass]">
+        <p v-if="props.body || $slots.body" :class="['type-explanation mt-3', props.bodyWidthClass]">
           <slot name="body">{{ props.body }}</slot>
         </p>
 
