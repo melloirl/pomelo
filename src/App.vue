@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AppFooter from './components/AppFooter.vue'
 import AppHeader from './components/AppHeader.vue'
 import ColumnLayout from './components/ColumnLayout.vue'
 import ContentCard from './components/ContentCard.vue'
@@ -144,8 +145,8 @@ const getShapeStyle = (shape: ScrollShape) => {
 </script>
 
 <template>
-  <div class="relative isolate min-h-screen overflow-x-clip bg-(--color-page) text-black">
-    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
+  <div class="relative isolate flex min-h-screen flex-col overflow-x-clip bg-(--color-page) text-black">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
       <div
         v-for="shape in shapes"
         :key="shape.id"
@@ -163,7 +164,7 @@ const getShapeStyle = (shape: ScrollShape) => {
 
     <AppHeader :links="links" :active-hash="activeHash" :on-hash-click="onHashClick" />
 
-    <main class="relative z-10 mx-auto min-h-screen w-full max-w-6xl px-6 pb-12 pt-32 sm:pb-16 sm:pt-36">
+    <main class="relative z-10 mx-auto w-full max-w-6xl flex-1 px-6 pb-12 pt-32 sm:pb-16 sm:pt-36">
       <section v-for="row in layoutRows" :key="row.id" :class="row.topMarginClass">
         <ColumnLayout :columns="row.columns" :proportions="row.proportions">
           <ContentCard
@@ -183,5 +184,7 @@ const getShapeStyle = (shape: ScrollShape) => {
         </ColumnLayout>
       </section>
     </main>
+
+    <AppFooter />
   </div>
 </template>
