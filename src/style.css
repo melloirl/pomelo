@@ -4,6 +4,8 @@
 @theme inline {
   --font-sans: 'Manrope', sans-serif;
   --font-heading: 'Space Grotesk', sans-serif;
+  --color-accent: #616161;
+  --color-accent-foreground: #ffffff;
 }
 
 @layer base {

@@ -1,5 +1,18 @@
 <script setup lang="ts">
-const links = ['Home', 'Work', 'Writing', 'Contact'] as const
+interface HeaderLink {
+  label: string
+  hash: string
+}
+
+const props = defineProps<{
+  links: readonly HeaderLink[]
+  activeHash: string | null
+  onHashClick: (hash: string) => (event?: MouseEvent) => void
+}>()
+
+const handleHashClick = (hash: string, event: MouseEvent) => {
+  props.onHashClick(hash)(event)
+}
 </script>
 
 <template>
@@ -9,13 +22,18 @@ const links = ['Home', 'Work', 'Writing', 'Contact'] as const
 
       <nav aria-label="Primary">
         <ul class="flex flex-wrap items-center gap-2 sm:gap-3">
-          <li v-for="link in links" :key="link">
+          <li v-for="link in props.links" :key="link.hash">
             <a
-              href="#"
-              @click.prevent
-              class="inline-block border-4 border-black bg-white px-3 py-2 text-xs font-bold uppercase tracking-[0.08em] shadow-[4px_4px_0_#000] transition-colors hover:bg-black hover:text-white focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-black"
+              :href="`#${link.hash}`"
+              @click="handleHashClick(link.hash, $event)"
+              :class="[
+                'inline-block border-4 border-black bg-white px-3 py-2 text-xs font-bold uppercase tracking-[0.08em] shadow-[4px_4px_0_#000] transition-colors hover:bg-black hover:text-white focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-black',
+                props.activeHash === link.hash
+                  ? 'border-[var(--color-accent)] bg-[var(--color-accent)] text-[var(--color-accent-foreground)]'
+                  : '',
+              ]"
             >
-              {{ link }}
+              {{ link.label }}
             </a>
           </li>
         </ul>
