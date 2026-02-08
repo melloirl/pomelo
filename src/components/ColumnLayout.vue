@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { computed, type CSSProperties } from 'vue'
 
-type ColumnCount = 1 | 2 | 3
 type ColumnProportions = readonly [number] | readonly [number, number] | readonly [number, number, number]
 
 interface ColumnLayoutProps {
-  columns?: ColumnCount
+  columns?: number
   proportions?: ColumnProportions
   gapClass?: string
 }

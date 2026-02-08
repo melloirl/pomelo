@@ -5,7 +5,7 @@ type CardBorderVariant = 'solid' | 'dashed'
 interface ContentCardProps {
   id: string
   title: string
-  body: string
+  body?: string
   sectionLabel?: string
   headingTag?: CardHeadingTag
   eyebrow?: string
@@ -29,9 +29,9 @@ const props = withDefaults(defineProps<ContentCardProps>(), {
   <section
     :id="props.id"
     :class="[
-      'w-full stroke-thin bg-white transition-colors',
+      'w-full bg-white border-black',
       props.paddingClass,
-      props.active ? 'border-(--color-accent)' : 'border-black',
+      props.active ? 'stroke-strong' : 'stroke-thin',
       props.borderVariant === 'dashed' ? 'border-dashed' : 'border-solid',
     ]"
   >
@@ -41,20 +41,22 @@ const props = withDefaults(defineProps<ContentCardProps>(), {
       </p>
 
       <div class="border-l border-black/50 pl-4 sm:pl-6">
-        <p v-if="props.eyebrow" class="text-xs font-bold uppercase tracking-[0.18em]">
-          {{ props.eyebrow }}
+        <p v-if="props.eyebrow || $slots.eyebrow" class="text-xs font-bold uppercase tracking-[0.18em]">
+          <slot name="eyebrow">{{ props.eyebrow }}</slot>
         </p>
 
         <component
           :is="props.headingTag"
           :class="props.headingTag === 'h1' ? 'mt-3 text-4xl leading-none sm:text-6xl' : 'text-2xl sm:text-3xl'"
         >
-          {{ props.title }}
+          <slot name="title">{{ props.title }}</slot>
         </component>
 
-        <p :class="['mt-3 text-base leading-relaxed sm:text-lg', props.bodyWidthClass]">
-          {{ props.body }}
+        <p v-if="props.body || $slots.body" :class="['mt-3 text-base leading-relaxed sm:text-lg', props.bodyWidthClass]">
+          <slot name="body">{{ props.body }}</slot>
         </p>
+
+        <slot />
       </div>
     </div>
   </section>

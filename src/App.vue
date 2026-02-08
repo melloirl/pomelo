@@ -6,12 +6,9 @@ import AppHeader from './components/AppHeader.vue'
 import ColumnLayout from './components/ColumnLayout.vue'
 import ContentCard from './components/ContentCard.vue'
 import { useHashScroll } from './composables/useHashScroll'
-import type { ScrollShape } from './composables/useScrollShapes'
-import { useScrollShapes } from './composables/useScrollShapes'
 
 const ACTIVE_LOCK_RELEASE_THRESHOLD = 220
 const HEADER_SCROLL_OFFSET = 112
-const ENABLE_SECTION_NUMBERING = false
 
 const headerLinks = [
   {
@@ -32,30 +29,24 @@ const headerLinks = [
   },
 ] as const
 
-type SectionHash = (typeof headerLinks)[number]['hash']
-type ColumnCount = 1 | 2 | 3
-type ColumnProportions = readonly [number] | readonly [number, number] | readonly [number, number, number]
-type CardHeadingTag = 'h1' | 'h2' | 'h3'
-type CardBorderVariant = 'solid' | 'dashed'
+const howIWorkItemKeys = [
+  'sections.howIWork.items.0',
+  'sections.howIWork.items.1',
+  'sections.howIWork.items.2',
+  'sections.howIWork.items.3',
+  'sections.howIWork.items.4',
+] as const
 
-interface CardConfig {
-  hash: SectionHash
-  title: string
-  body: string
-  eyebrow?: string
-  headingTag?: CardHeadingTag
-  bodyWidthClass?: string
-  paddingClass?: string
-  borderVariant?: CardBorderVariant
-}
-
-interface LayoutRow {
-  id: string
-  hashes: readonly SectionHash[]
-  columns: ColumnCount
-  proportions?: ColumnProportions
-  topMarginClass?: string
-}
+const primaryImpactKeys = ['sections.work.primary.impacts.0', 'sections.work.primary.impacts.1'] as const
+const primaryDecisionKeys = ['sections.work.primary.decisions.0', 'sections.work.primary.decisions.1'] as const
+const secondaryImpactKeys = ['sections.work.secondary.impacts.0', 'sections.work.secondary.impacts.1'] as const
+const secondaryDecisionKeys = ['sections.work.secondary.decisions.0', 'sections.work.secondary.decisions.1'] as const
+const frontendSkillKeys = ['sections.skills.frontend.items.0', 'sections.skills.frontend.items.1', 'sections.skills.frontend.items.2'] as const
+const backendSkillKeys = [
+  'sections.skills.backendTooling.items.0',
+  'sections.skills.backendTooling.items.1',
+  'sections.skills.backendTooling.items.2',
+] as const
 
 const { t } = useI18n()
 
@@ -66,134 +57,298 @@ const links = computed(() =>
   })),
 )
 
-const cardsByHash: Record<SectionHash, CardConfig> = {
-  home: {
-    hash: 'home',
-    eyebrow: 'omelodev',
-    title: 'Built With Structure.',
-    body: 'Navigation is now fixed, heavy, and explicit: a clear frame that stays visible as the page scrolls.',
-    headingTag: 'h1',
-    bodyWidthClass: 'max-w-3xl',
-    paddingClass: 'p-6 sm:p-10',
-  },
-  work: {
-    hash: 'work',
-    title: 'Work',
-    body: 'Placeholder content to demonstrate the fixed header behavior while scrolling. Routes can be wired later.',
-  },
-  writing: {
-    hash: 'writing',
-    title: 'Writing',
-    body: 'Placeholder content to demonstrate the fixed header behavior while scrolling. Routes can be wired later.',
-  },
-  contact: {
-    hash: 'contact',
-    title: 'Contact',
-    body: 'Placeholder content to demonstrate the fixed header behavior while scrolling. Routes can be wired later.',
-    borderVariant: 'dashed',
-  },
-}
-
-const layoutRows: readonly LayoutRow[] = [
-  {
-    id: 'hero',
-    hashes: ['home'],
-    columns: 1,
-  },
-  {
-    id: 'primary',
-    hashes: ['work', 'writing'],
-    columns: 2,
-    proportions: [2, 3],
-    topMarginClass: 'mt-8',
-  },
-  {
-    id: 'secondary',
-    hashes: ['contact'],
-    columns: 1,
-    topMarginClass: 'mt-8',
-  },
-]
-
 const { activeHash, onHashClick } = useHashScroll({
   trackedHashes: headerLinks.map((link) => link.hash),
   offset: HEADER_SCROLL_OFFSET,
   lockReleaseThreshold: ACTIVE_LOCK_RELEASE_THRESHOLD,
 })
 
-const { shapes } = useScrollShapes()
-
-const getSectionLabel = (hash: SectionHash) => {
-  const sectionNumber = headerLinks.findIndex((link) => link.hash === hash) + 1
-  return sectionNumber.toString().padStart(2, '0')
-}
-
-const getShapeClass = (shape: ScrollShape) => {
-  const borderStyleClass = shape.borderVariant === 'dashed' ? 'border-dashed' : 'border-solid'
-  const baseClass =
-    shape.fill === 'fill'
-      ? `bg-(--color-shape-fill) border-black ${borderStyleClass}`
-      : `bg-(--color-page) border-black ${borderStyleClass}`
-
-  if (shape.kind === 'diamond') {
-    return `${baseClass} rotate-45`
-  }
-
-  return `${baseClass} rounded-full`
-}
-
-const getShapeStyle = (shape: ScrollShape) => {
-  const edgeOffset = Math.round(shape.size * shape.cropRatio)
-
-  return {
-    height: `${shape.size}px`,
-    left: shape.side === 'left' ? `-${edgeOffset}px` : 'auto',
-    right: shape.side === 'right' ? `-${edgeOffset}px` : 'auto',
-    top: `${shape.top}px`,
-    width: `${shape.size}px`,
-  }
-}
+const currentYear = new Date().getFullYear()
 </script>
 
 <template>
-  <div class="relative isolate flex min-h-screen flex-col overflow-x-clip bg-(--color-page) text-black">
-    <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-      <div
-        v-for="shape in shapes"
-        :key="shape.id"
-        class="absolute stroke-thin"
-        :class="getShapeClass(shape)"
-        :style="getShapeStyle(shape)"
-      >
-        <div
-          v-if="shape.kind === 'ring'"
-          class="absolute inset-[22%] rounded-full stroke-thin border-black bg-(--color-page)"
-          :class="shape.borderVariant === 'dashed' ? 'border-dashed' : 'border-solid'"
-        ></div>
-      </div>
-    </div>
-
+  <div class="flex min-h-screen flex-col bg-(--color-page) text-black">
     <AppHeader :links="links" :active-hash="activeHash" :on-hash-click="onHashClick" />
 
-    <main class="relative z-10 mx-auto w-full max-w-6xl flex-1 px-6 pb-12 pt-32 sm:pb-16 sm:pt-36">
-      <section v-for="row in layoutRows" :key="row.id" :class="row.topMarginClass">
-        <ColumnLayout :columns="row.columns" :proportions="row.proportions">
+    <main class="mx-auto w-full max-w-6xl flex-1 px-6 pb-10 pt-32 sm:pb-14 sm:pt-36">
+      <ColumnLayout :columns="12" gap-class="gap-6">
+        <div class="relative sm:col-span-12">
           <ContentCard
-            v-for="hash in row.hashes"
-            :key="hash"
-            :id="hash"
-            :title="cardsByHash[hash].title"
-            :body="cardsByHash[hash].body"
-            :eyebrow="cardsByHash[hash].eyebrow"
-            :heading-tag="cardsByHash[hash].headingTag"
-            :body-width-class="cardsByHash[hash].bodyWidthClass"
-            :padding-class="cardsByHash[hash].paddingClass"
-            :border-variant="cardsByHash[hash].borderVariant"
-            :section-label="ENABLE_SECTION_NUMBERING ? getSectionLabel(hash) : undefined"
-            :active="activeHash === hash"
+            id="home"
+            :title="t('sections.hero.role')"
+            :body="t('sections.hero.paragraph')"
+            :eyebrow="t('profile.name')"
+            heading-tag="h1"
+            body-width-class="max-w-3xl"
+            padding-class="p-6 sm:p-10"
+            border-variant="solid"
+            :active="activeHash === 'home'"
+          >
+            <p class="mt-4 max-w-4xl border-t border-black pt-4 font-heading text-2xl leading-tight sm:text-4xl">
+              {{ t('sections.hero.headline') }}
+            </p>
+
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a
+                href="#contact"
+                @click="onHashClick('contact')($event)"
+                class="stroke-thin border-black px-4 py-2 text-xs font-bold uppercase tracking-[0.12em]"
+              >
+                {{ t('sections.hero.actions.contact') }}
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/omelodev/"
+                target="_blank"
+                rel="noreferrer"
+                class="stroke-thin border-black px-4 py-2 text-xs font-bold uppercase tracking-[0.12em]"
+              >
+              {{ t('sections.hero.actions.resume') }}
+            </a>
+          </div>
+        </ContentCard>
+          <p
+            aria-hidden="true"
+            class="pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-[0.62rem] font-bold uppercase tracking-[0.24em] text-black/30 sm:block"
+          >
+            01 {{ t('header.home') }}
+          </p>
+        </div>
+
+        <div class="relative sm:col-span-8 sm:col-start-1">
+          <ContentCard
+            id="how-i-work"
+            :title="t('sections.howIWork.title')"
+            body=""
+            border-variant="dashed"
+            padding-class="p-6 sm:p-8"
+          >
+            <ul class="mt-5 space-y-2 border-t border-black pt-5 text-sm leading-relaxed sm:text-base">
+              <li v-for="itemKey in howIWorkItemKeys" :key="itemKey">- {{ t(itemKey) }}</li>
+            </ul>
+          </ContentCard>
+          <p
+            aria-hidden="true"
+            class="pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-[0.62rem] font-bold uppercase tracking-[0.24em] text-black/30 sm:block"
+          >
+            02 {{ t('sections.howIWork.title') }}
+          </p>
+        </div>
+
+        <div class="relative sm:col-span-8 sm:col-start-5">
+          <ContentCard
+            id="ai-leverage"
+            :title="t('sections.aiLeverage.title')"
+            body=""
+            border-variant="dashed"
+            padding-class="p-6 sm:p-8"
+          >
+            <ul class="mt-5 space-y-3 border-t border-black pt-5 text-sm leading-relaxed sm:text-base">
+              <li><span class="font-bold">{{ t('sections.aiLeverage.usedLabel') }}:</span> {{ t('sections.aiLeverage.used') }}</li>
+              <li>
+                <span class="font-bold">{{ t('sections.aiLeverage.notTrustedLabel') }}:</span>
+                {{ t('sections.aiLeverage.notTrusted') }}
+              </li>
+              <li>
+                <span class="font-bold">{{ t('sections.aiLeverage.validatedLabel') }}:</span>
+                {{ t('sections.aiLeverage.validated') }}
+              </li>
+            </ul>
+          </ContentCard>
+          <p
+            aria-hidden="true"
+            class="pointer-events-none absolute top-6 -left-10 hidden [writing-mode:vertical-rl] text-[0.62rem] font-bold uppercase tracking-[0.24em] text-black/30 sm:block"
+          >
+            03 {{ t('sections.aiLeverage.title') }}
+          </p>
+        </div>
+
+        <div class="relative sm:col-span-8 sm:col-start-1">
+          <ContentCard
+            id="work"
+            :title="t('sections.work.primary.title')"
+            :body="t('sections.work.primary.context')"
+            padding-class="p-6 sm:p-8"
+            border-variant="solid"
+            :active="activeHash === 'work'"
+          >
+            <div class="mt-6 grid grid-cols-1 gap-6 border-t border-black pt-6 sm:grid-cols-2">
+              <div>
+                <p class="text-xs font-bold uppercase tracking-[0.12em]">{{ t('sections.work.labels.impact') }}</p>
+                <ul class="mt-3 space-y-2 text-sm leading-relaxed sm:text-base">
+                  <li v-for="itemKey in primaryImpactKeys" :key="itemKey">- {{ t(itemKey) }}</li>
+                </ul>
+              </div>
+
+              <div>
+                <p class="text-xs font-bold uppercase tracking-[0.12em]">{{ t('sections.work.labels.decisions') }}</p>
+                <ul class="mt-3 space-y-2 text-sm leading-relaxed sm:text-base">
+                  <li v-for="itemKey in primaryDecisionKeys" :key="itemKey">- {{ t(itemKey) }}</li>
+                </ul>
+              </div>
+            </div>
+
+            <a
+              href="#writing"
+              @click="onHashClick('writing')($event)"
+              class="mt-6 inline-block border-b-2 border-black pb-1 text-xs font-bold uppercase tracking-[0.12em]"
+            >
+              {{ t('sections.work.deepDive') }}
+            </a>
+          </ContentCard>
+          <p
+            aria-hidden="true"
+            class="pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-[0.62rem] font-bold uppercase tracking-[0.24em] text-black/30 sm:block"
+          >
+            04 {{ t('sections.work.primary.title') }}
+          </p>
+        </div>
+
+        <div class="relative sm:col-span-8 sm:col-start-5">
+          <ContentCard
+            id="work-secondary"
+            :title="t('sections.work.secondary.title')"
+            :body="t('sections.work.secondary.context')"
+            padding-class="p-6 sm:p-8"
+            border-variant="solid"
+          >
+            <div class="mt-6 grid grid-cols-1 gap-6 border-t border-black pt-6 sm:grid-cols-2">
+              <div>
+                <p class="text-xs font-bold uppercase tracking-[0.12em]">{{ t('sections.work.labels.impact') }}</p>
+                <ul class="mt-3 space-y-2 text-sm leading-relaxed sm:text-base">
+                  <li v-for="itemKey in secondaryImpactKeys" :key="itemKey">- {{ t(itemKey) }}</li>
+                </ul>
+              </div>
+
+              <div>
+                <p class="text-xs font-bold uppercase tracking-[0.12em]">{{ t('sections.work.labels.decisions') }}</p>
+                <ul class="mt-3 space-y-2 text-sm leading-relaxed sm:text-base">
+                  <li v-for="itemKey in secondaryDecisionKeys" :key="itemKey">- {{ t(itemKey) }}</li>
+                </ul>
+              </div>
+            </div>
+
+            <a
+              href="#writing"
+              @click="onHashClick('writing')($event)"
+              class="mt-6 inline-block border-b-2 border-black pb-1 text-xs font-bold uppercase tracking-[0.12em]"
+            >
+              {{ t('sections.work.deepDive') }}
+            </a>
+          </ContentCard>
+          <p
+            aria-hidden="true"
+            class="pointer-events-none absolute top-6 -left-10 hidden [writing-mode:vertical-rl] text-[0.62rem] font-bold uppercase tracking-[0.24em] text-black/30 sm:block"
+          >
+            05 {{ t('sections.work.secondary.title') }}
+          </p>
+        </div>
+
+        <div class="relative sm:col-span-6 sm:col-start-1">
+          <ContentCard
+            id="work-contribution"
+            :title="t('sections.work.contribution.title')"
+            :body="t('sections.work.contribution.body')"
+            border-variant="solid"
+            padding-class="p-6 sm:p-8"
           />
-        </ColumnLayout>
-      </section>
+          <p
+            aria-hidden="true"
+            class="pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-[0.62rem] font-bold uppercase tracking-[0.24em] text-black/30 sm:block"
+          >
+            06 {{ t('sections.work.contribution.title') }}
+          </p>
+        </div>
+
+        <div class="relative sm:col-span-8 sm:col-start-1">
+          <ContentCard
+            id="skills"
+            :title="t('sections.skills.title')"
+            body=""
+            border-variant="solid"
+            padding-class="p-6 sm:p-8"
+          >
+            <div class="mt-6 grid grid-cols-1 gap-6 border-t border-black pt-6 sm:grid-cols-2">
+              <div>
+                <p class="text-xs font-bold uppercase tracking-[0.12em]">{{ t('sections.skills.frontend.title') }}</p>
+                <ul class="mt-3 space-y-2 text-sm leading-relaxed sm:text-base">
+                  <li v-for="itemKey in frontendSkillKeys" :key="itemKey">- {{ t(itemKey) }}</li>
+                </ul>
+              </div>
+
+              <div>
+                <p class="text-xs font-bold uppercase tracking-[0.12em]">{{ t('sections.skills.backendTooling.title') }}</p>
+                <ul class="mt-3 space-y-2 text-sm leading-relaxed sm:text-base">
+                  <li v-for="itemKey in backendSkillKeys" :key="itemKey">- {{ t(itemKey) }}</li>
+                </ul>
+              </div>
+            </div>
+          </ContentCard>
+          <p
+            aria-hidden="true"
+            class="pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-[0.62rem] font-bold uppercase tracking-[0.24em] text-black/30 sm:block"
+          >
+            07 {{ t('sections.skills.title') }}
+          </p>
+        </div>
+
+        <div class="relative sm:col-span-6 sm:col-start-7">
+          <ContentCard
+            id="writing"
+            :title="t('sections.writing.title')"
+            :body="t('sections.writing.body')"
+            border-variant="solid"
+            padding-class="p-6 sm:p-8"
+            :active="activeHash === 'writing'"
+          >
+            <a
+              href="/writing"
+              class="mt-5 inline-block border-b-2 border-black pb-1 text-xs font-bold uppercase tracking-[0.12em]"
+            >
+              {{ t('sections.writing.link') }}
+            </a>
+          </ContentCard>
+          <p
+            aria-hidden="true"
+            class="pointer-events-none absolute top-6 -left-10 hidden [writing-mode:vertical-rl] text-[0.62rem] font-bold uppercase tracking-[0.24em] text-black/30 sm:block"
+          >
+            08 {{ t('sections.writing.title') }}
+          </p>
+        </div>
+
+        <div class="relative sm:col-span-12">
+          <ContentCard
+            id="contact"
+            :title="t('sections.footer.nameYear', { year: currentYear })"
+            :body="t('sections.footer.locationTimezone')"
+            border-variant="solid"
+            padding-class="p-6 sm:p-8"
+            heading-tag="h3"
+            body-width-class="max-w-full"
+            :active="activeHash === 'contact'"
+          >
+            <div class="mt-5 border-t border-black pt-5 text-xs font-bold uppercase tracking-[0.12em]">
+              <a href="mailto:hello@omelodev.com" class="border-b border-black pb-0.5">
+                {{ t('sections.footer.links.email') }}
+              </a>
+              <span class="mx-2">/</span>
+              <a href="https://www.linkedin.com/in/omelodev/" target="_blank" rel="noreferrer" class="border-b border-black pb-0.5">
+                {{ t('sections.footer.links.linkedin') }}
+              </a>
+              <span class="mx-2">/</span>
+              <a href="https://github.com/omelodev" target="_blank" rel="noreferrer" class="border-b border-black pb-0.5">
+                {{ t('sections.footer.links.github') }}
+              </a>
+            </div>
+          </ContentCard>
+          <p
+            aria-hidden="true"
+            class="pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-[0.62rem] font-bold uppercase tracking-[0.24em] text-black/30 sm:block"
+          >
+            09 {{ t('header.contact') }}
+          </p>
+        </div>
+      </ColumnLayout>
     </main>
 
     <AppFooter />

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import { toggleUserLocale, useUserLocale } from '../composables/useUserLocale'
 
 interface HeaderLink {
@@ -21,6 +22,8 @@ const locale = useUserLocale()
 const toggleLocale = () => {
   toggleUserLocale()
 }
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -49,7 +52,7 @@ const toggleLocale = () => {
 
       <button
         type="button"
-        aria-label="Toggle language"
+        :aria-label="t('header.toggleLanguage')"
         @click="toggleLocale"
         class="justify-self-end inline-flex min-w-8 cursor-pointer items-center justify-center px-1 py-1 font-heading text-[10px] leading-none font-extrabold uppercase tracking-[0.14em] text-black transition-transform duration-150 hover:-translate-y-0.5 hover:scale-105 sm:text-[11px]"
       >
