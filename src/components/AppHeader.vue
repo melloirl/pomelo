@@ -9,6 +9,8 @@ interface HeaderLink {
   hash: string
 }
 
+const ENABLE_POMELO_LOGO_RAINBOW_CYCLE = false
+
 const props = defineProps<{
   links: readonly HeaderLink[]
   activeHash: string | null
@@ -33,11 +35,17 @@ const { t } = useI18n()
     <div class="mx-auto grid w-full max-w-6xl grid-cols-[1fr_auto_1fr] items-center gap-3 px-6 py-4">
       <a
         href="#home"
-        class="justify-self-start"
+        :class="['justify-self-start', ENABLE_POMELO_LOGO_RAINBOW_CYCLE && 'logo-hover-trigger']"
         :aria-label="t('header.home')"
         @click="handleHashClick('home', $event)"
       >
-        <PomeloLogo class="h-8 w-auto text-lime-700" aria-label="omelodev" role="img" />
+        <PomeloLogo
+          :full-color="ENABLE_POMELO_LOGO_RAINBOW_CYCLE"
+          class="h-8 w-auto text-lime-700"
+          :class="ENABLE_POMELO_LOGO_RAINBOW_CYCLE && 'logo-rainbow-on-hover'"
+          aria-label="omelodev"
+          role="img"
+        />
       </a>
 
       <nav aria-label="Primary" class="min-w-0">

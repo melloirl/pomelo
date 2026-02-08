@@ -31,6 +31,44 @@
 }
 
 @layer utilities {
+  @keyframes pomelo-logo-rainbow {
+    0% {
+      color: var(--color-lime-700);
+    }
+
+    16% {
+      color: #ef4444;
+    }
+
+    33% {
+      color: #f97316;
+    }
+
+    50% {
+      color: #facc15;
+    }
+
+    66% {
+      color: #22c55e;
+    }
+
+    83% {
+      color: #3b82f6;
+    }
+
+    100% {
+      color: #a855f7;
+    }
+  }
+
+  .logo-rainbow-on-hover {
+    transition: color 250ms linear;
+  }
+
+  .logo-hover-trigger:hover .logo-rainbow-on-hover {
+    animation: pomelo-logo-rainbow 2.8s linear infinite;
+  }
+
   .stroke-strong {
     border-width: var(--stroke-strong);
   }
