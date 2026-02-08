@@ -6,6 +6,8 @@
   --font-heading: 'Space Grotesk', sans-serif;
   --color-accent: #616161;
   --color-accent-foreground: #ffffff;
+  --color-page: #f2f2f1;
+  --color-shape-fill: #dcdcd8;
 }
 
 @layer base {
@@ -16,7 +18,8 @@
   }
 
   body {
-    @apply m-0 bg-white text-black font-sans;
+    @apply m-0 text-black font-sans;
+    background-color: var(--color-page);
   }
 
   h1,
