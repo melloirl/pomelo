@@ -132,7 +132,7 @@ const getShapeStyle = (shape: ScrollShape) => {
 </script>
 
 <template>
-  <div class="relative isolate min-h-screen overflow-x-clip bg-[var(--color-page)] text-black">
+  <div class="relative isolate min-h-screen overflow-x-clip bg-(--color-page) text-black">
     <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
       <div
         v-for="shape in shapes"
@@ -143,7 +143,7 @@ const getShapeStyle = (shape: ScrollShape) => {
       >
         <div
           v-if="shape.kind === 'ring'"
-          class="absolute inset-[22%] rounded-full border-4 border-black bg-[var(--color-page)]"
+          class="absolute inset-[22%] rounded-full border-4 border-black bg-(--color-page)"
         ></div>
       </div>
     </div>

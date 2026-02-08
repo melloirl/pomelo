@@ -29,7 +29,7 @@ const handleHashClick = (hash: string, event: MouseEvent) => {
               :class="[
                 'inline-block border-4 border-black bg-white px-3 py-2 text-xs font-bold uppercase tracking-[0.08em] shadow-[4px_4px_0_#000] transition-colors hover:bg-black hover:text-white focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-black',
                 props.activeHash === link.hash
-                  ? 'border-[var(--color-accent)] bg-[var(--color-accent)] text-[var(--color-accent-foreground)]'
+                  ? 'border-(--color-accent) bg-(--color-accent) text-(--color-accent-foreground)'
                   : '',
               ]"
             >

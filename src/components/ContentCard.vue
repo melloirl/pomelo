@@ -27,7 +27,7 @@ const props = withDefaults(defineProps<ContentCardProps>(), {
     :class="[
       'w-full border-4 bg-white transition-colors',
       props.paddingClass,
-      props.active ? 'border-[var(--color-accent)]' : 'border-black',
+      props.active ? 'border-(--color-accent)' : 'border-black',
     ]"
   >
     <p v-if="props.eyebrow" class="text-xs font-bold uppercase tracking-[0.18em]">

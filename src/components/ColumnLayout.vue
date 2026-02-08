@@ -33,7 +33,7 @@ const layoutStyle = computed(
 
 <template>
   <div
-    class="grid w-full grid-cols-1 sm:[grid-template-columns:var(--layout-columns)]"
+    class="grid w-full grid-cols-1 sm:grid-cols-(--layout-columns)"
     :class="props.gapClass"
     :style="layoutStyle"
   >
