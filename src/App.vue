@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import AppFooter from './components/AppFooter.vue'
 import AppHeader from './components/AppHeader.vue'
 import ColumnLayout from './components/ColumnLayout.vue'
@@ -11,26 +13,26 @@ const ACTIVE_LOCK_RELEASE_THRESHOLD = 220
 const HEADER_SCROLL_OFFSET = 112
 const ENABLE_SECTION_NUMBERING = false
 
-const links = [
+const headerLinks = [
   {
-    label: 'Home',
+    labelKey: 'header.home',
     hash: 'home',
   },
   {
-    label: 'Work',
+    labelKey: 'header.work',
     hash: 'work',
   },
   {
-    label: 'Writing',
+    labelKey: 'header.writing',
     hash: 'writing',
   },
   {
-    label: 'Contact',
+    labelKey: 'header.contact',
     hash: 'contact',
   },
 ] as const
 
-type SectionHash = (typeof links)[number]['hash']
+type SectionHash = (typeof headerLinks)[number]['hash']
 type ColumnCount = 1 | 2 | 3
 type ColumnProportions = readonly [number] | readonly [number, number] | readonly [number, number, number]
 type CardHeadingTag = 'h1' | 'h2' | 'h3'
@@ -54,6 +56,15 @@ interface LayoutRow {
   proportions?: ColumnProportions
   topMarginClass?: string
 }
+
+const { t } = useI18n()
+
+const links = computed(() =>
+  headerLinks.map((link) => ({
+    hash: link.hash,
+    label: t(link.labelKey),
+  })),
+)
 
 const cardsByHash: Record<SectionHash, CardConfig> = {
   home: {
@@ -105,7 +116,7 @@ const layoutRows: readonly LayoutRow[] = [
 ]
 
 const { activeHash, onHashClick } = useHashScroll({
-  trackedHashes: links.map((link) => link.hash),
+  trackedHashes: headerLinks.map((link) => link.hash),
   offset: HEADER_SCROLL_OFFSET,
   lockReleaseThreshold: ACTIVE_LOCK_RELEASE_THRESHOLD,
 })
@@ -113,7 +124,7 @@ const { activeHash, onHashClick } = useHashScroll({
 const { shapes } = useScrollShapes()
 
 const getSectionLabel = (hash: SectionHash) => {
-  const sectionNumber = links.findIndex((link) => link.hash === hash) + 1
+  const sectionNumber = headerLinks.findIndex((link) => link.hash === hash) + 1
   return sectionNumber.toString().padStart(2, '0')
 }
 
