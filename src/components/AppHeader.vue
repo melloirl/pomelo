@@ -16,7 +16,7 @@ const handleHashClick = (hash: string, event: MouseEvent) => {
 </script>
 
 <template>
-  <header class="fixed inset-x-0 top-0 z-50 border-b-4 border-black bg-white">
+  <header class="fixed inset-x-0 top-0 z-50 border-black border-b stroke-b-strong bg-white">
     <div class="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-3 px-6 py-4">
       <p class="text-xs font-bold uppercase tracking-[0.18em]">omelodev</p>
 

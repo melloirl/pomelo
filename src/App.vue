@@ -8,6 +8,7 @@ import { useScrollShapes } from './composables/useScrollShapes'
 
 const ACTIVE_LOCK_RELEASE_THRESHOLD = 220
 const HEADER_SCROLL_OFFSET = 112
+const ENABLE_SECTION_NUMBERING = false
 
 const links = [
   {
@@ -110,6 +111,11 @@ const { activeHash, onHashClick } = useHashScroll({
 
 const { shapes } = useScrollShapes()
 
+const getSectionLabel = (hash: SectionHash) => {
+  const sectionNumber = links.findIndex((link) => link.hash === hash) + 1
+  return sectionNumber.toString().padStart(2, '0')
+}
+
 const getShapeClass = (shape: ScrollShape) => {
   const borderStyleClass = shape.borderVariant === 'dashed' ? 'border-dashed' : 'border-solid'
   const baseClass =
@@ -143,13 +149,13 @@ const getShapeStyle = (shape: ScrollShape) => {
       <div
         v-for="shape in shapes"
         :key="shape.id"
-        class="absolute border-4"
+        class="absolute stroke-thin"
         :class="getShapeClass(shape)"
         :style="getShapeStyle(shape)"
       >
         <div
           v-if="shape.kind === 'ring'"
-          class="absolute inset-[22%] rounded-full border-4 border-black bg-(--color-page)"
+          class="absolute inset-[22%] rounded-full stroke-thin border-black bg-(--color-page)"
           :class="shape.borderVariant === 'dashed' ? 'border-dashed' : 'border-solid'"
         ></div>
       </div>
@@ -171,6 +177,7 @@ const getShapeStyle = (shape: ScrollShape) => {
             :body-width-class="cardsByHash[hash].bodyWidthClass"
             :padding-class="cardsByHash[hash].paddingClass"
             :border-variant="cardsByHash[hash].borderVariant"
+            :section-label="ENABLE_SECTION_NUMBERING ? getSectionLabel(hash) : undefined"
             :active="activeHash === hash"
           />
         </ColumnLayout>

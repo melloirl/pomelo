@@ -4,6 +4,8 @@
 @theme inline {
   --font-sans: 'Manrope', sans-serif;
   --font-heading: 'Space Grotesk', sans-serif;
+  --stroke-strong: 4px;
+  --stroke-thin: 3px;
   --color-accent: #616161;
   --color-accent-foreground: #ffffff;
   --color-page: #f2f2f1;
@@ -11,6 +13,7 @@
 }
 
 @layer base {
+
   html,
   body,
   #app {
@@ -29,5 +32,19 @@
   h5,
   h6 {
     font-family: var(--font-heading);
+  }
+}
+
+@layer utilities {
+  .stroke-strong {
+    border-width: var(--stroke-strong);
+  }
+
+  .stroke-thin {
+    border-width: var(--stroke-thin);
+  }
+
+  .stroke-b-strong {
+    border-bottom-width: var(--stroke-strong);
   }
 }
