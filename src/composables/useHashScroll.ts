@@ -25,6 +25,7 @@ const defaultOptions = {
 } as const
 
 const CLICK_LOCK_GRACE_MS = 1200
+const PAGE_END_EPSILON_PX = 2
 
 const normalizeHash = (hash: string) => (hash.startsWith('#') ? hash : `#${hash}`)
 const normalizeHashId = (hash: string) => {
@@ -89,6 +90,29 @@ const getClosestHashToViewportCenter = (hashes: readonly string[]) => {
   }
 }
 
+const getLastTrackedHash = (hashes: readonly string[]) => {
+  for (let index = hashes.length - 1; index >= 0; index -= 1) {
+    const normalizedHash = normalizeHashId(hashes[index] ?? '')
+
+    if (normalizedHash) {
+      return normalizedHash
+    }
+  }
+
+  return null
+}
+
+const isAtPageEnd = () => {
+  const scrollHeight = document.documentElement.scrollHeight
+  const maxScrollableDistance = scrollHeight - window.innerHeight
+
+  if (maxScrollableDistance <= PAGE_END_EPSILON_PX) {
+    return false
+  }
+
+  return window.scrollY >= maxScrollableDistance - PAGE_END_EPSILON_PX
+}
+
 export const useHashScroll = (baseOptions: UseHashScrollOptions = {}) => {
   const resolvedBaseOptions = { ...defaultOptions, ...baseOptions }
   const activeHash = ref<string | null>(null)
@@ -105,6 +129,14 @@ export const useHashScroll = (baseOptions: UseHashScrollOptions = {}) => {
 
   const updateActiveHash = () => {
     if (typeof window === 'undefined') {
+      return
+    }
+
+    const lastTrackedHash = getLastTrackedHash(resolvedBaseOptions.trackedHashes)
+
+    if (lastTrackedHash && isAtPageEnd()) {
+      clearClickedHashLock()
+      activeHash.value = lastTrackedHash
       return
     }
 
