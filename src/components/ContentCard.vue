@@ -27,7 +27,7 @@ const props = withDefaults(defineProps<ContentCardProps>(), {
   <section
     :id="props.id"
     :class="[
-      'w-full bg-white',
+      'w-full bg-lime-100',
       props.paddingClass,
       props.borderVariant === 'strong' ? 'stroke-strong' : 'stroke-thin',
       props.borderVariant === 'dashed' ? 'border-dashed border-black/50' : 'border-solid border-black',

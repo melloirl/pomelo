@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import AppButton from './components/AppButton.vue'
 import AppFooter from './components/AppFooter.vue'
 import AppHeader from './components/AppHeader.vue'
 import ColumnLayout from './components/ColumnLayout.vue'
@@ -67,7 +68,7 @@ const currentYear = new Date().getFullYear()
 </script>
 
 <template>
-  <div class="flex min-h-screen flex-col bg-(--color-page) text-black">
+  <div class="flex min-h-screen flex-col bg-lime-50 text-black">
     <AppHeader :links="links" :active-hash="activeHash" :on-hash-click="onHashClick" />
 
     <main class="mx-auto w-full max-w-6xl flex-1 px-6 pb-10 pt-32 sm:pb-14 sm:pt-36">
@@ -88,27 +89,24 @@ const currentYear = new Date().getFullYear()
             </p>
 
             <div class="mt-6 flex flex-wrap gap-3">
-              <a
+              <AppButton
                 href="#contact"
                 @click="onHashClick('contact')($event)"
-                class="type-action stroke-thin border-black px-4 py-2"
               >
                 {{ t('sections.hero.actions.contact') }}
-              </a>
+              </AppButton>
 
-              <a
+              <AppButton
                 href="https://www.linkedin.com/in/omelodev/"
                 target="_blank"
-                rel="noreferrer"
-                class="type-action stroke-thin border-black px-4 py-2"
               >
                 {{ t('sections.hero.actions.resume') }}
-              </a>
+              </AppButton>
             </div>
           </ContentCard>
           <p
             aria-hidden="true"
-            class="type-identity pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-black/30 sm:block"
+            class="type-identity pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-lime-900/35 sm:block"
           >
             01 {{ t('header.home') }}
           </p>
@@ -128,7 +126,7 @@ const currentYear = new Date().getFullYear()
           </ContentCard>
           <p
             aria-hidden="true"
-            class="type-identity pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-black/30 sm:block"
+            class="type-identity pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-lime-900/35 sm:block"
           >
             02 {{ t('sections.howIWork.title') }}
           </p>
@@ -156,7 +154,7 @@ const currentYear = new Date().getFullYear()
           </ContentCard>
           <p
             aria-hidden="true"
-            class="type-identity pointer-events-none absolute top-6 -left-10 hidden [writing-mode:vertical-rl] text-black/30 sm:block"
+            class="type-identity pointer-events-none absolute top-6 -left-10 hidden [writing-mode:vertical-rl] text-lime-900/35 sm:block"
           >
             03 {{ t('sections.aiLeverage.title') }}
           </p>
@@ -192,17 +190,18 @@ const currentYear = new Date().getFullYear()
               </div>
             </div>
 
-            <a
+            <AppButton
               href="#writing"
+              variant="ghost"
+              class="mt-6"
               @click="onHashClick('writing')($event)"
-              class="type-action mt-6 inline-block border-b-2 border-black pb-1"
             >
               {{ t('sections.work.deepDive') }}
-            </a>
+            </AppButton>
           </ContentCard>
           <p
             aria-hidden="true"
-            class="type-identity pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-black/30 sm:block"
+            class="type-identity pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-lime-900/35 sm:block"
           >
             04 {{ t('sections.work.primary.title') }}
           </p>
@@ -238,17 +237,18 @@ const currentYear = new Date().getFullYear()
               </div>
             </div>
 
-            <a
+            <AppButton
               href="#writing"
+              variant="ghost"
+              class="mt-6"
               @click="onHashClick('writing')($event)"
-              class="type-action mt-6 inline-block border-b-2 border-black pb-1"
             >
               {{ t('sections.work.deepDive') }}
-            </a>
+            </AppButton>
           </ContentCard>
           <p
             aria-hidden="true"
-            class="type-identity pointer-events-none absolute top-6 -left-10 hidden [writing-mode:vertical-rl] text-black/30 sm:block"
+            class="type-identity pointer-events-none absolute top-6 -left-10 hidden [writing-mode:vertical-rl] text-lime-900/35 sm:block"
           >
             05 {{ t('sections.work.secondary.title') }}
           </p>
@@ -264,7 +264,7 @@ const currentYear = new Date().getFullYear()
           />
           <p
             aria-hidden="true"
-            class="type-identity pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-black/30 sm:block"
+            class="type-identity pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-lime-900/35 sm:block"
           >
             06 {{ t('sections.work.contribution.title') }}
           </p>
@@ -296,7 +296,7 @@ const currentYear = new Date().getFullYear()
           </ContentCard>
           <p
             aria-hidden="true"
-            class="type-identity pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-black/30 sm:block"
+            class="type-identity pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-lime-900/35 sm:block"
           >
             07 {{ t('sections.skills.title') }}
           </p>
@@ -310,16 +310,17 @@ const currentYear = new Date().getFullYear()
             border-variant="solid"
             padding-class="p-6 sm:p-8"
           >
-            <a
+            <AppButton
               href="/writing"
-              class="type-action mt-5 inline-block border-b-2 border-black pb-1"
+              variant="ghost"
+              class="mt-5"
             >
               {{ t('sections.writing.link') }}
-            </a>
+            </AppButton>
           </ContentCard>
           <p
             aria-hidden="true"
-            class="type-identity pointer-events-none absolute top-6 -left-10 hidden [writing-mode:vertical-rl] text-black/30 sm:block"
+            class="type-identity pointer-events-none absolute top-6 -left-10 hidden [writing-mode:vertical-rl] text-lime-900/35 sm:block"
           >
             08 {{ t('sections.writing.title') }}
           </p>
@@ -351,7 +352,7 @@ const currentYear = new Date().getFullYear()
           </ContentCard>
           <p
             aria-hidden="true"
-            class="type-identity pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-black/30 sm:block"
+            class="type-identity pointer-events-none absolute top-6 -right-10 hidden [writing-mode:vertical-rl] text-lime-900/35 sm:block"
           >
             09 {{ t('header.contact') }}
           </p>
