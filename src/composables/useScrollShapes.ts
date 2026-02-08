@@ -3,12 +3,14 @@ import { onMounted, onUnmounted, ref } from 'vue'
 type ShapeKind = 'circle' | 'ring' | 'diamond'
 type ShapeSide = 'left' | 'right'
 type ShapeFill = 'page' | 'fill'
+type ShapeBorderVariant = 'solid' | 'dashed'
 
 export interface ScrollShape {
   id: string
   kind: ShapeKind
   side: ShapeSide
   fill: ShapeFill
+  borderVariant: ShapeBorderVariant
   band: number
   top: number
   size: number
@@ -78,6 +80,7 @@ const randomShapeKind = (): ShapeKind => {
 }
 
 const randomShapeFill = (): ShapeFill => (Math.random() > 0.5 ? 'fill' : 'page')
+const randomShapeBorderVariant = (): ShapeBorderVariant => (Math.random() > 0.5 ? 'dashed' : 'solid')
 
 const getBandRange = (viewportTop: number, viewportBottom: number, bandHeight: number) => {
   const startBand = Math.floor(viewportTop / bandHeight)
@@ -104,9 +107,11 @@ const createShapeForBand = (band: number): ScrollShape => {
   const cropRatio = mostlyHalfCrop ? randomFloat(0.46, 0.62) : randomFloat(0.32, 0.44)
   const kind = randomShapeKind()
   const fill = randomShapeFill()
+  const borderVariant = randomShapeBorderVariant()
 
   return {
     band,
+    borderVariant,
     cropRatio,
     fill,
     id: `${band}-${Math.round(top)}-${size}-${kind}-${side}-${Math.round(Math.random() * 99999)}`,

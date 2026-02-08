@@ -1,5 +1,6 @@
 <script setup lang="ts">
 type CardHeadingTag = 'h1' | 'h2' | 'h3'
+type CardBorderVariant = 'solid' | 'dashed'
 
 interface ContentCardProps {
   id: string
@@ -10,6 +11,7 @@ interface ContentCardProps {
   active?: boolean
   bodyWidthClass?: string
   paddingClass?: string
+  borderVariant?: CardBorderVariant
 }
 
 const props = withDefaults(defineProps<ContentCardProps>(), {
@@ -18,6 +20,7 @@ const props = withDefaults(defineProps<ContentCardProps>(), {
   active: false,
   bodyWidthClass: 'max-w-2xl',
   paddingClass: 'p-5 sm:p-8',
+  borderVariant: 'solid',
 })
 </script>
 
@@ -28,6 +31,7 @@ const props = withDefaults(defineProps<ContentCardProps>(), {
       'w-full border-4 bg-white transition-colors',
       props.paddingClass,
       props.active ? 'border-(--color-accent)' : 'border-black',
+      props.borderVariant === 'dashed' ? 'border-dashed' : 'border-solid',
     ]"
   >
     <p v-if="props.eyebrow" class="text-xs font-bold uppercase tracking-[0.18em]">

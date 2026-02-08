@@ -32,6 +32,7 @@ type SectionHash = (typeof links)[number]['hash']
 type ColumnCount = 1 | 2 | 3
 type ColumnProportions = readonly [number] | readonly [number, number] | readonly [number, number, number]
 type CardHeadingTag = 'h1' | 'h2' | 'h3'
+type CardBorderVariant = 'solid' | 'dashed'
 
 interface CardConfig {
   hash: SectionHash
@@ -41,6 +42,7 @@ interface CardConfig {
   headingTag?: CardHeadingTag
   bodyWidthClass?: string
   paddingClass?: string
+  borderVariant?: CardBorderVariant
 }
 
 interface LayoutRow {
@@ -75,6 +77,7 @@ const cardsByHash: Record<SectionHash, CardConfig> = {
     hash: 'contact',
     title: 'Contact',
     body: 'Placeholder content to demonstrate the fixed header behavior while scrolling. Routes can be wired later.',
+    borderVariant: 'dashed',
   },
 }
 
@@ -108,8 +111,11 @@ const { activeHash, onHashClick } = useHashScroll({
 const { shapes } = useScrollShapes()
 
 const getShapeClass = (shape: ScrollShape) => {
+  const borderStyleClass = shape.borderVariant === 'dashed' ? 'border-dashed' : 'border-solid'
   const baseClass =
-    shape.fill === 'fill' ? 'bg-[var(--color-shape-fill)] border-black' : 'bg-[var(--color-page)] border-black'
+    shape.fill === 'fill'
+      ? `bg-(--color-shape-fill) border-black ${borderStyleClass}`
+      : `bg-(--color-page) border-black ${borderStyleClass}`
 
   if (shape.kind === 'diamond') {
     return `${baseClass} rotate-45`
@@ -144,6 +150,7 @@ const getShapeStyle = (shape: ScrollShape) => {
         <div
           v-if="shape.kind === 'ring'"
           class="absolute inset-[22%] rounded-full border-4 border-black bg-(--color-page)"
+          :class="shape.borderVariant === 'dashed' ? 'border-dashed' : 'border-solid'"
         ></div>
       </div>
     </div>
@@ -163,6 +170,7 @@ const getShapeStyle = (shape: ScrollShape) => {
             :heading-tag="cardsByHash[hash].headingTag"
             :body-width-class="cardsByHash[hash].bodyWidthClass"
             :padding-class="cardsByHash[hash].paddingClass"
+            :border-variant="cardsByHash[hash].borderVariant"
             :active="activeHash === hash"
           />
         </ColumnLayout>
