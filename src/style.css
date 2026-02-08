@@ -6,7 +6,7 @@
   --font-heading: 'Space Grotesk', sans-serif;
   --stroke-strong: 4px;
   --stroke-thin: 3px;
-  --color-accent: #616161;
+  --color-accent: #3a4a55;
   --color-accent-foreground: #ffffff;
   --color-page: #f2f2f1;
   --color-shape-fill: #dcdcd8;
@@ -77,7 +77,7 @@
   }
 
   .type-evidence-label {
-    @apply font-sans text-xs leading-[1.2] font-extrabold uppercase tracking-[0.12em];
+    @apply font-sans text-xs leading-[1.2] font-semibold uppercase tracking-[0.14em];
   }
 
   .type-action {

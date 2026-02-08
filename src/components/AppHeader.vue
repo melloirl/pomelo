@@ -38,11 +38,11 @@ const { t } = useI18n()
               :href="`#${link.hash}`"
               @click="handleHashClick(link.hash, $event)"
               :class="[
-                'inline-block border-4 border-black bg-white px-3 py-2 shadow-[4px_4px_0_#000] transition-colors hover:bg-black hover:text-white focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-black',
+                'inline-block border-4 px-3 py-2 transition-colors focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-black',
                 'type-action',
                 props.activeHash === link.hash
-                  ? 'border-(--color-accent) bg-(--color-accent) shadow-[4px_4px_0_var(--color-accent)]'
-                  : '',
+                  ? 'border-(--color-accent) bg-(--color-accent) text-(--color-accent-foreground) shadow-[4px_4px_0_var(--color-accent)]'
+                  : 'border-black bg-white text-black shadow-[4px_4px_0_#000] hover:bg-black hover:text-(--color-accent-foreground)',
               ]"
             >
               {{ link.label }}

@@ -81,8 +81,7 @@ const currentYear = new Date().getFullYear()
             heading-tag="h1"
             body-width-class="max-w-3xl"
             padding-class="p-6 sm:p-10"
-            border-variant="solid"
-            :active="activeHash === 'home'"
+            border-variant="strong"
           >
             <p class="type-declaration type-declaration-support mt-4 max-w-4xl border-t border-black pt-4">
               {{ t('sections.hero.headline') }}
@@ -170,8 +169,13 @@ const currentYear = new Date().getFullYear()
             :body="t('sections.work.primary.context')"
             padding-class="p-6 sm:p-8"
             border-variant="solid"
-            :active="activeHash === 'work'"
           >
+            <template #title>
+              <span class="block text-xl sm:text-2xl">
+                {{ t('sections.work.primary.title') }}
+              </span>
+            </template>
+
             <div class="mt-6 grid grid-cols-1 gap-6 border-t border-black pt-6 sm:grid-cols-2">
               <div>
                 <p class="type-evidence-label">{{ t('sections.work.labels.impact') }}</p>
@@ -212,6 +216,12 @@ const currentYear = new Date().getFullYear()
             padding-class="p-6 sm:p-8"
             border-variant="solid"
           >
+            <template #title>
+              <span class="block text-xl sm:text-2xl">
+                {{ t('sections.work.secondary.title') }}
+              </span>
+            </template>
+
             <div class="mt-6 grid grid-cols-1 gap-6 border-t border-black pt-6 sm:grid-cols-2">
               <div>
                 <p class="type-evidence-label">{{ t('sections.work.labels.impact') }}</p>
@@ -299,7 +309,6 @@ const currentYear = new Date().getFullYear()
             :body="t('sections.writing.body')"
             border-variant="solid"
             padding-class="p-6 sm:p-8"
-            :active="activeHash === 'writing'"
           >
             <a
               href="/writing"
@@ -325,7 +334,6 @@ const currentYear = new Date().getFullYear()
             padding-class="p-6 sm:p-8"
             heading-tag="h3"
             body-width-class="max-w-full"
-            :active="activeHash === 'contact'"
           >
             <div class="type-action mt-5 border-t border-black pt-5">
               <a href="mailto:hello@omelodev.com" class="border-b border-black pb-0.5">

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 type CardHeadingTag = 'h1' | 'h2' | 'h3'
-type CardBorderVariant = 'solid' | 'dashed'
+type CardBorderVariant = 'solid' | 'dashed' | 'strong'
 
 interface ContentCardProps {
   id: string
@@ -9,7 +9,6 @@ interface ContentCardProps {
   sectionLabel?: string
   headingTag?: CardHeadingTag
   eyebrow?: string
-  active?: boolean
   bodyWidthClass?: string
   paddingClass?: string
   borderVariant?: CardBorderVariant
@@ -18,7 +17,6 @@ interface ContentCardProps {
 const props = withDefaults(defineProps<ContentCardProps>(), {
   headingTag: 'h2',
   eyebrow: undefined,
-  active: false,
   bodyWidthClass: 'max-w-2xl',
   paddingClass: 'p-5 sm:p-8',
   borderVariant: 'solid',
@@ -29,10 +27,10 @@ const props = withDefaults(defineProps<ContentCardProps>(), {
   <section
     :id="props.id"
     :class="[
-      'w-full bg-white border-black',
+      'w-full bg-white',
       props.paddingClass,
-      props.active ? 'stroke-strong' : 'stroke-thin',
-      props.borderVariant === 'dashed' ? 'border-dashed' : 'border-solid',
+      props.borderVariant === 'strong' ? 'stroke-strong' : 'stroke-thin',
+      props.borderVariant === 'dashed' ? 'border-dashed border-black/50' : 'border-solid border-black',
     ]"
   >
     <div :class="props.sectionLabel ? 'grid grid-cols-[auto_1fr] gap-4 sm:gap-6' : ''">
