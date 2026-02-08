@@ -1,58 +1,12 @@
-@import "tailwindcss";
-
-:root {
-  color-scheme: dark;
-
-  --background: oklch(0.16 0.02 256);
-  --surface: oklch(0.22 0.025 256);
-  --surface-2: oklch(0.27 0.03 256);
-  --foreground: oklch(0.97 0.01 255);
-  --muted: oklch(0.73 0.02 255);
-  --border: oklch(0.36 0.03 255);
-
-  --primary: oklch(0.74 0.15 254);
-  --primary-foreground: oklch(0.18 0.02 255);
-  --secondary: oklch(0.78 0.08 196);
-  --secondary-foreground: oklch(0.16 0.02 255);
-  --accent: oklch(0.79 0.11 167);
-  --accent-foreground: oklch(0.16 0.02 255);
-
-  --success: oklch(0.74 0.13 154);
-  --warning: oklch(0.83 0.15 86);
-  --danger: oklch(0.69 0.19 22);
-
-  --ring: oklch(0.67 0.17 252);
-}
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+@import 'tailwindcss';
 
 @theme inline {
-  --font-sans: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
-
-  --color-background: var(--background);
-  --color-surface: var(--surface);
-  --color-surface-2: var(--surface-2);
-  --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
-  --color-border: var(--border);
-
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-
-  --color-success: var(--success);
-  --color-warning: var(--warning);
-  --color-danger: var(--danger);
-
-  --color-ring: var(--ring);
+  --font-sans: 'Manrope', sans-serif;
+  --font-heading: 'Space Grotesk', sans-serif;
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-
   html,
   body,
   #app {
@@ -60,17 +14,15 @@
   }
 
   body {
-    @apply m-0 bg-background font-sans text-foreground antialiased;
-    background-image:
-      radial-gradient(circle at 14% 9%, color-mix(in oklab, var(--color-primary) 20%, transparent) 0%, transparent 45%),
-      radial-gradient(circle at 84% 6%, color-mix(in oklab, var(--color-accent) 14%, transparent) 0%, transparent 35%);
+    @apply m-0 bg-white text-black font-sans;
   }
 
-  a {
-    @apply text-primary transition-colors hover:text-accent;
-  }
-
-  code {
-    @apply rounded-md border border-border bg-surface-2 px-1.5 py-0.5 text-sm text-foreground;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
   }
 }
