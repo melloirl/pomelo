@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
+import { toggleUserLocale, useUserLocale } from '../composables/useUserLocale'
 
 interface HeaderLink {
   label: string
@@ -16,10 +16,10 @@ const handleHashClick = (hash: string, event: MouseEvent) => {
   props.onHashClick(hash)(event)
 }
 
-const { locale } = useI18n({ useScope: 'global' })
+const locale = useUserLocale()
 
 const toggleLocale = () => {
-  locale.value = locale.value === 'pt-br' ? 'en-us' : 'pt-br'
+  toggleUserLocale()
 }
 </script>
 
