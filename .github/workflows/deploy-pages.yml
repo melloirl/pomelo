@@ -26,6 +26,7 @@ jobs:
         uses: oven-sh/setup-bun@v2
 
       - name: Setup Pages
+        id: pages
         uses: actions/configure-pages@v5
 
       - name: Install dependencies
@@ -33,7 +34,7 @@ jobs:
 
       - name: Build
         env:
-          VITE_BASE_URL: ${{ vars.VITE_BASE_URL != '' && vars.VITE_BASE_URL || (endsWith(github.event.repository.name, '.github.io') && '/' || format('/{0}/', github.event.repository.name)) }}
+          VITE_BASE_URL: ${{ steps.pages.outputs.base_path }}
         run: bun run build
 
       - name: Disable Jekyll

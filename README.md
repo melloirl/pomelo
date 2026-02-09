@@ -11,8 +11,7 @@ Dark-first Vue 3 + Vite + Tailwind CSS v4 starter.
 ## Deployment
 
 - GitHub Pages deploys automatically on each push to `main` via `.github/workflows/deploy-pages.yml`.
-- `base` is resolved from `VITE_BASE_URL` first, then falls back to the repository path on GitHub Actions.
-- Set a repository variable named `VITE_BASE_URL` if you need to override the default Pages base path.
+- In CI, `VITE_BASE_URL` comes from `actions/configure-pages` (`base_path`) so repo renames are handled automatically.
 
 ## Environment
 
