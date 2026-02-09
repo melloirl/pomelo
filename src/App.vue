@@ -68,7 +68,7 @@ const currentYear = new Date().getFullYear()
 </script>
 
 <template>
-  <div class="flex min-h-screen flex-col bg-lime-50 text-black">
+  <div class="flex min-h-screen min-h-dvh flex-col bg-lime-50 text-black">
     <AppHeader :links="links" :active-hash="activeHash" :on-hash-click="onHashClick" />
 
     <main class="mx-auto w-full max-w-6xl flex-1 px-6 pb-10 pt-32 sm:pb-14 sm:pt-36">
